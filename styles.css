@@ -1,0 +1,6 @@
+#drawImg {
+  max-width: 100%; /* Adjust this value as needed */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove extra space below inline images */
+  margin: 0 auto; /* Center the image */
+}
