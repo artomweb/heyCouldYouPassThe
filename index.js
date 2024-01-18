@@ -25,19 +25,16 @@ function nextUtensil() {
 
   drawImg.src = IMG_FOLDER + rndDraw.img;
 
-  let theseUtensils = rndDraw.utensils;
+  if (typeof rndDraw.workingUtensils == "undefined" || rndDraw.workingUtensils.length == 0) {
+    console.log("No more utensils");
+    rndDraw.workingUtensils = [...rndDraw.utensils];
+  }
+  let workingUtensils = rndDraw.workingUtensils;
 
-  // if (typeof rndDraw.workingUtensils == "undefined" || rndDraw.workingUtensils.length == 0) {
-  //   console.log("No more utensils");
-  //   rndDraw.workingUtensils = [...rndDraw.utensils];
-  // }
-  // let workingUtensils = rndDraw.workingUtensils;
+  let rndUtensilIdx = Math.floor(Math.random() * workingUtensils.length);
 
   let rndUtensil = workingUtensils[rndUtensilIdx];
-  let randomDesc =
-    rndUtensil.descriptions[
-      Math.floor(Math.random() * rndUtensil.descriptions.length)
-    ];
+  let randomDesc = rndUtensil.descriptions[Math.floor(Math.random() * rndUtensil.descriptions.length)];
   question.innerHTML = "Hey, could you pass me the " + randomDesc + "?";
 
   document.getElementById("utensilMap").innerHTML = "";
@@ -59,10 +56,7 @@ function nextUtensil() {
   });
 
   drawImg.onload = () => {
-    resizableImageMap = new ImageMap(
-      document.getElementById("utensilMap"),
-      document.getElementById("drawImg")
-    );
+    resizableImageMap = new ImageMap(document.getElementById("utensilMap"), document.getElementById("drawImg"));
 
     resizableImageMap.resize();
     resizableImageMap.resize();
