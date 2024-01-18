@@ -4,32 +4,35 @@ let question = document.getElementById("question");
 let drawImg = document.getElementById("drawImg");
 
 let currentUtensilName;
+let currentImageName;
 
 const IMG_FOLDER = "drawImages/";
 
 function nextUtensil() {
-  let rndDraw = draws[Math.floor(Math.random() * draws.length)];
+  let rndDraw;
+
+  let thisImage;
+  while (thisImage == currentImageName) {
+    rndDraw = draws[Math.floor(Math.random() * draws.length)];
+    thisImage = rndDraw.img;
+  }
 
   console.log("rndDraw", rndDraw);
 
   drawImg.src = IMG_FOLDER + rndDraw.img;
 
-  if (
-    typeof rndDraw.workingUtensils == "undefined" ||
-    rndDraw.workingUtensils.length == 0
-  ) {
-    console.log("No more utensils");
-    rndDraw.workingUtensils = [...rndDraw.utensils];
-  }
-  let workingUtensils = rndDraw.workingUtensils;
+  let theseUtensils = rndDraw.utensils;
 
-  let rndUtensilIdx = Math.floor(Math.random() * workingUtensils.length);
+  // if (typeof rndDraw.workingUtensils == "undefined" || rndDraw.workingUtensils.length == 0) {
+  //   console.log("No more utensils");
+  //   rndDraw.workingUtensils = [...rndDraw.utensils];
+  // }
+  // let workingUtensils = rndDraw.workingUtensils;
 
-  let rndUtensil = workingUtensils[rndUtensilIdx];
-  let randomDesc =
-    rndUtensil.descriptions[
-      Math.floor(Math.random() * rndUtensil.descriptions.length)
-    ];
+  let rndUtensilIdx = Math.floor(Math.random() * theseUtensils.length);
+
+  let rndUtensil = theseUtensils[rndUtensilIdx];
+  let randomDesc = rndUtensil.descriptions[Math.floor(Math.random() * rndUtensil.descriptions.length)];
   question.innerHTML = "Hey, could you pass me the " + randomDesc;
 
   document.getElementById("utensilMap").innerHTML = "";
@@ -46,10 +49,10 @@ function nextUtensil() {
 
     if (ut.name === rndUtensil.name) {
       currentUtensilName = ut.name;
-      workingUtensils.splice(rndUtensilIdx, 1);
+      // workingUtensils.splice(rndUtensilIdx, 1);
     }
   });
-  imageMapResize();
+  // imageMapResize();
 }
 
 nextUtensil();
@@ -62,6 +65,6 @@ function areaClicked(areaName) {
   }
 }
 
-document.onload = () => {
-  imageMapResize();
-};
+// document.onload = () => {
+//   imageMapResize(document.getElementById("utensilMap"));
+// };
