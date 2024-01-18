@@ -1,6 +1,12 @@
 #drawImg {
-  max-width: 100%; /* Adjust this value as needed */
+  max-width: 600px; /* Adjust this value as needed */
   height: auto; /* Maintain aspect ratio */
   display: block; /* Remove extra space below inline images */
   margin: 0 auto; /* Center the image */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }

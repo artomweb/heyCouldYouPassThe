@@ -7,6 +7,10 @@ let currentUtensilName;
 
 const IMG_FOLDER = "drawImages/";
 
+let resizeImg;
+
+let resizableImageMap;
+
 function nextUtensil() {
   let rndDraw = draws[Math.floor(Math.random() * draws.length)];
 
@@ -30,7 +34,7 @@ function nextUtensil() {
     rndUtensil.descriptions[
       Math.floor(Math.random() * rndUtensil.descriptions.length)
     ];
-  question.innerHTML = "Hey, could you pass me the " + randomDesc;
+  question.innerHTML = "Hey, could you pass me the " + randomDesc + "?";
 
   document.getElementById("utensilMap").innerHTML = "";
 
@@ -49,8 +53,21 @@ function nextUtensil() {
       workingUtensils.splice(rndUtensilIdx, 1);
     }
   });
-  imageMapResize();
+
+  drawImg.onload = () => {
+    resizableImageMap = new ImageMap(
+      document.getElementById("utensilMap"),
+      document.getElementById("drawImg")
+    );
+
+    resizableImageMap.resize();
+    resizableImageMap.resize();
+  };
 }
+
+window.onresize = () => {
+  resizableImageMap.resize();
+};
 
 nextUtensil();
 
@@ -61,7 +78,3 @@ function areaClicked(areaName) {
     nextUtensil();
   }
 }
-
-document.onload = () => {
-  imageMapResize();
-};
