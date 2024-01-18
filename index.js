@@ -4,6 +4,7 @@ let question = document.getElementById("question");
 let drawImg = document.getElementById("drawImg");
 
 let currentUtensilName;
+let currentImageName;
 
 const IMG_FOLDER = "drawImages/";
 
@@ -12,22 +13,25 @@ let resizeImg;
 let resizableImageMap;
 
 function nextUtensil() {
-  let rndDraw = draws[Math.floor(Math.random() * draws.length)];
+  let rndDraw;
+
+  let thisImage;
+  while (thisImage == currentImageName) {
+    rndDraw = draws[Math.floor(Math.random() * draws.length)];
+    thisImage = rndDraw.img;
+  }
 
   console.log("rndDraw", rndDraw);
 
   drawImg.src = IMG_FOLDER + rndDraw.img;
 
-  if (
-    typeof rndDraw.workingUtensils == "undefined" ||
-    rndDraw.workingUtensils.length == 0
-  ) {
-    console.log("No more utensils");
-    rndDraw.workingUtensils = [...rndDraw.utensils];
-  }
-  let workingUtensils = rndDraw.workingUtensils;
+  let theseUtensils = rndDraw.utensils;
 
-  let rndUtensilIdx = Math.floor(Math.random() * workingUtensils.length);
+  // if (typeof rndDraw.workingUtensils == "undefined" || rndDraw.workingUtensils.length == 0) {
+  //   console.log("No more utensils");
+  //   rndDraw.workingUtensils = [...rndDraw.utensils];
+  // }
+  // let workingUtensils = rndDraw.workingUtensils;
 
   let rndUtensil = workingUtensils[rndUtensilIdx];
   let randomDesc =
@@ -50,7 +54,7 @@ function nextUtensil() {
 
     if (ut.name === rndUtensil.name) {
       currentUtensilName = ut.name;
-      workingUtensils.splice(rndUtensilIdx, 1);
+      // workingUtensils.splice(rndUtensilIdx, 1);
     }
   });
 
