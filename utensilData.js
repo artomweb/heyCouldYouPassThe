@@ -2,7 +2,7 @@ utensilData = {
   phraseStarters: ["Hey could you pass me the", "Hey could you pass the"],
   draws: [
     // {
-    //   img: "draw1.png",
+    //   img: "draw1.webp",
     //   source: "",
     //   utensils: [
     //     {
@@ -35,7 +35,7 @@ utensilData = {
     //   ],
     // },
     {
-      img: "draw2.jpg",
+      img: "draw2.webp",
       source: "https://www.lakeland-furniture.co.uk/",
       utensils: [
         {
@@ -52,7 +52,7 @@ utensilData = {
       ],
     },
     {
-      img: "draw4.jpg",
+      img: "draw4.webp",
       source: "https://www.flickr.com/photos/osseous/29326510123",
       utensils: [
         {
@@ -94,7 +94,7 @@ utensilData = {
       ],
     },
     {
-      img: "draw5.jpeg",
+      img: "draw5.webp",
       source: "",
       utensils: [
         {
@@ -142,7 +142,7 @@ utensilData = {
       ],
     },
     // {
-    //   img: "draw3.jpg",
+    //   img: "draw3.webp",
     //   source: "",
     //   utensils: [
     //     {
