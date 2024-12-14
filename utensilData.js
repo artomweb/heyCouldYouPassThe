@@ -45,9 +45,9 @@ utensilData = {
           descriptions: ["purple scissors", "scissors"],
         },
         {
-          name: "tin foil",
+          name: "cling film",
           mapBoundary: "321,559,323,485,859,470,863,554",
-          descriptions: ["tin foil"],
+          descriptions: ["cling film"],
         },
       ],
     },
