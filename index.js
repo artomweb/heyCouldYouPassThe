@@ -10,14 +10,53 @@ const IMG_FOLDER = "drawImages/";
 
 let resizableImageMap;
 
-let utensilQueue = prepareUtensilQueue(utensilData);
 let currentQueueIndex = 0;
+
+let totalItems = 0;
+let utensilQueue = prepareUtensilQueue(utensilData);
+
+// Preload all images
+function preloadImages() {
+  const imagePreloadPromises = [];
+
+  // Iterate over all draws and preload each image
+  draws.forEach((draw) => {
+    const imageUrl = IMG_FOLDER + draw.img; // Image path
+    const img = new Image(); // Create an image object
+    img.src = imageUrl; // Set the source of the image
+    imagePreloadPromises.push(
+      new Promise((resolve) => {
+        img.onload = resolve; // Resolve the promise when the image is loaded
+      })
+    );
+  });
+
+  // Wait until all images are loaded
+  Promise.all(imagePreloadPromises).then(() => {
+    console.log("All images preloaded!");
+    // Now you can safely call nextUtensil or any other function that uses these images
+    nextUtensil();
+  });
+}
+
+// Start preloading when the page loads
+window.onload = preloadImages;
+
+function updateProgressBar() {
+  const progressBar = document.getElementById("progressBar");
+  // Calculate progress percentage
+  const progressPercentage = (currentQueueIndex / totalItems) * 100;
+  // Update the width of the progress bar
+  progressBar.style.width = `${progressPercentage}%`;
+  // Update the progress text
+}
 
 function nextUtensil() {
   if (currentQueueIndex >= utensilQueue.length) {
     // All items have been processed, show THANKS!
     question.innerHTML = "THANKS!";
     drawImg.src = ""; // Optional: clear the image when finished
+    drawImg.classList.add("hidden");
     sourceLink.classList.add("hidden"); // Hide the source link when done
     return; // Stop further execution
   }
@@ -68,9 +107,6 @@ window.onresize = () => {
   }
 };
 
-// Start the first utensil selection
-nextUtensil();
-
 let lastResponse = "";
 
 function areaClicked(areaName) {
@@ -93,6 +129,7 @@ function areaClicked(areaName) {
     console.log("Correct!");
     nextUtensil();
     response.innerHTML = "";
+    updateProgressBar();
   } else {
     console.log(responseText);
     response.innerHTML = responseText;
@@ -118,6 +155,8 @@ function prepareUtensilQueue(data) {
   });
 
   console.log("num items", queue.length);
+
+  totalItems = queue.length;
 
   // Shuffle and check for consecutive draws with the same image
   shuffleArray(queue);
