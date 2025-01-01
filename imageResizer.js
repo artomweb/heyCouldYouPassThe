@@ -14,10 +14,10 @@ class ImageMap {
   }
   resize() {
     let sf = this.img.width / this.img.naturalWidth;
-    console.log(this.img);
-    console.log(sf);
-    console.log("width", this.img.width);
-    console.log("naturalWidth", this.img.naturalWidth);
+    // console.log(this.img);
+    // console.log(sf);
+    // console.log("width", this.img.width);
+    // console.log("naturalWidth", this.img.naturalWidth);
 
     for (let a = 0; a < this.areas.length; a++) {
       let newCoords = [];

@@ -14,6 +14,14 @@ let utensilQueue = prepareUtensilQueue(utensilData);
 let currentQueueIndex = 0;
 
 function nextUtensil() {
+  if (currentQueueIndex >= utensilQueue.length) {
+    // All items have been processed, show THANKS!
+    question.innerHTML = "THANKS!";
+    drawImg.src = ""; // Optional: clear the image when finished
+    sourceLink.classList.add("hidden"); // Hide the source link when done
+    return; // Stop further execution
+  }
+
   let { draw, utensil, description, source } = getNextUtensil();
 
   // Update the image source
@@ -109,35 +117,11 @@ function prepareUtensilQueue(data) {
     });
   });
 
+  console.log("num items", queue.length);
+
   // Shuffle and check for consecutive draws with the same image
   shuffleArray(queue);
-  let filteredQueue = [];
-  let lastImage = null;
-
-  queue.forEach((item) => {
-    if (item.draw.img !== lastImage) {
-      filteredQueue.push(item);
-      lastImage = item.draw.img;
-    }
-  });
-
-  let maxConsecutiveDuplicates = 2;
-  let finalQueue = [];
-  let duplicateCount = 0;
-
-  for (let i = 0; i < filteredQueue.length; i++) {
-    if (i > 0 && filteredQueue[i].draw.img === filteredQueue[i - 1].draw.img) {
-      duplicateCount++;
-    } else {
-      duplicateCount = 0;
-    }
-
-    if (duplicateCount < maxConsecutiveDuplicates) {
-      finalQueue.push(filteredQueue[i]);
-    }
-  }
-
-  return finalQueue;
+  return queue;
 }
 
 // Shuffle the array using Fisher-Yates
